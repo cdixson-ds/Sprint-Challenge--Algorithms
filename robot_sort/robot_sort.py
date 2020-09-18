@@ -94,11 +94,38 @@ class SortingRobot:
 
     def sort(self):
         """
-        Sort the robot's list.
+        Sort the robot's list. This should be similar to bubble sort, and the light is a flag
+        to keep track of whether or not a swap has occurred. If the light is off at the end
+        of the list, sorting is completed
         """
-        # Fill this out
-        pass
+        
+        #turn light on
+        self.set_light_on()
 
+        while self.light_is_on() is True:
+            self.set_light_off()
+
+            #if robot is able to move right returns true
+            while self.can_move_right():
+                #pick up item
+                self.swap_item()
+                self.move_right()
+                #compare to item on the right
+                if self.compare_item() >0:
+                    self.swap_item()
+                    self.move_left()
+                    self.swap_item()
+                    #swap has occurred, light on
+                    self.set_light_on()
+                else:
+                    self.move_left()
+                    self.swap_item()
+                    #continue through list
+                    self.move_right()
+            if self.light_is_on():
+                while self.can_move_left():
+                    self.move_left()
+                
 
 if __name__ == "__main__":
     # Test our your implementation from the command line
